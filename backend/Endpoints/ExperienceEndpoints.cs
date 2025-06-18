@@ -13,8 +13,10 @@ public static class ExperienceEndpoints
                 async (ICvService cvService) =>
                 {
                     // TODO: Oppgave 2
+                    var experiences = await cvService.GetAllExperiencesAsync();
+                    var experiencesDtos = experiences.Select(e => e.ToDto()).ToList();
 
-                    return Results.Ok();
+                    return Results.Ok(experiencesDtos);
                 }
             )
             .WithName("GetAllExperiences")
@@ -26,8 +28,12 @@ public static class ExperienceEndpoints
                 async (Guid id, ICvService cvService) =>
                 {
                     // TODO: Oppgave 2
+                    var experience = await cvService.GetExperienceByIdAsync(id);
 
-                    return Results.Ok();
+                    if (experience == null)
+                        return Results.NotFound("Experience not found");
+                    
+                    return Results.Ok(experience);
                 }
             )
             .WithName("GetExperienceById")
