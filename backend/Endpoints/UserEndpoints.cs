@@ -43,10 +43,13 @@ public static class UserEndpoints
         // Retrieve all cvs that include any of the wanted skills
         app.MapPost(
                 "/users/skills",
-                async () =>
+                async (SkillRequest skillRequest, ICvService cvService) =>
                 {
                     // TODO: Oppgave 4
-                    return Results.Ok();
+                    var users = await cvService.GetUsersWithDesiredSkills(skillRequest.WantedSkills);
+                    var userDtos = users.Select(u => u.ToDto());
+
+                    return Results.Ok(userDtos);
                 }
             )
             .WithName("GetUsersWithDesiredSkill")

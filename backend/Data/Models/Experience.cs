@@ -1,5 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
+// public enum ExperienceType
+// {
+//     work,
+//     education,
+//     voluntary,
+//     hobbyproject,
+//     other,
+// }
+
 namespace backend.Data.Models
 {
     [Table("experience", Schema = "public")]

@@ -1,6 +1,7 @@
 ﻿using backend.Data;
 using backend.Data.Mappers;
 using backend.Data.Models;
+using backend.Data.Requests;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services;
@@ -44,4 +45,13 @@ public class CvService(AppDbContext context) : ICvService
     }
 
     // TODO: Oppgave 4 ny metode (husk å legge den til i interfacet)
+    public async Task<IEnumerable<User>> GetUsersWithDesiredSkills(IEnumerable<string> desiredTechnologies)
+    {
+        var desiredSkills = desiredTechnologies.Select(t => new Skill(Technology: t));
+        var users = await context.Users.ToListAsync();
+        
+        return users.Where(u =>
+            UserMapper.ParseUserSkills(u.Skills).Any(skill => desiredSkills.Contains(skill))
+        );
+    }
 }
