@@ -5,13 +5,14 @@
   border-radius: 24px;
   overflow: hidden;
   background-color: #ecf7ff;
+  cursor: pointer;
 }
 
 .chip {
   position: absolute;
   right: var(--cx-spacing-1);
   top: var(--cx-spacing-4);
-  z-index: 100;
+  /* z-index: 100; */
 }
 
 .image {

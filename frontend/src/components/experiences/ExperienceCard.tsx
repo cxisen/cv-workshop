@@ -6,9 +6,10 @@ import { ExperienceChip } from "./ExperienceChip";
 
 interface ExperienceCardProps {
   experience: Experience;
+  onClick: () => void;
 }
 
-export function ExperienceCard({ experience }: ExperienceCardProps) {
+export function ExperienceCard({ experience, onClick }: ExperienceCardProps) {
   function getMonth(date: string) {
     const dateObj = new Date(date);
     const month = dateObj.toLocaleDateString("nb-NO", { month: "long" });
@@ -17,7 +18,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => onClick()}>
       <img
         className={styles.image}
         src={experience.imageUrl || akersgataImage}
@@ -35,7 +36,7 @@ export function ExperienceCard({ experience }: ExperienceCardProps) {
         <p className={styles.keyInfo}>
           <CxIcon name="location" size="4" />{" "}
           {/* TODO Oppgave 6.1: Conditional rendering*/}
-          {experience.company}
+          {experience.company ?? "Selvstendig arbeid"}
         </p>
         <p className={styles.eventTitle}>{experience.title}</p>
       </div>
